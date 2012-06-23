@@ -1,8 +1,8 @@
 <?php
 
-include("Parser.class.php");
+include_once "./src/main/php/Parser.class.php";
 
-$parser = new Parser("./template.html");
+$parser = new Parser("./src/test/resources/template.html");
 
 echo "<pre>";
 print($parser->raw());
