@@ -1,7 +1,7 @@
 <?php
 
-require_once "../lib/simpletest/autorun.php";
-require_once "../../main/php/Parser.class.php";
+require_once "$testRoot/../lib/simpletest/autorun.php";
+require_once "$testRoot/../../main/php/Parser.class.php";
 
 class ParserTests extends UnitTestCase {
 
