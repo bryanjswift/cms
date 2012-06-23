@@ -2,7 +2,7 @@
 
 include("Parser.class.php");
 
-$parser = new Parser("./template.html", "cms:content");
+$parser = new Parser("./template.html");
 
 echo "<pre>";
 print($parser->raw());
