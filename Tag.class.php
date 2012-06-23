@@ -4,6 +4,7 @@ class Tag {
 
   private $markup = "";
   private $attrs = array();
+  private $processed = false;
 
   function __construct($markup) {
     $this->markup = $markup;
@@ -23,7 +24,7 @@ class Tag {
   }
 
   function attributes() {
-    if (count($this->attrs) > 0) { return $this->attrs; }
+    if (count($this->processed) === true) { return $this->attrs; }
 
     $attrs = array();
     $matches = array();
@@ -34,6 +35,7 @@ class Tag {
       $attrs[$parts[0]] = $parts[1];
     }
     $this->attrs = $attrs;
+    $this->processed = true;
 
     return $attrs;
   }
