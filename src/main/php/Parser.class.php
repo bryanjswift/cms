@@ -9,9 +9,15 @@ class Parser {
   private $tags = array();
 
   function __construct($template, $prefix="cms:") {
-    $fh = fopen($template, "r");
-    $this->template = fread($fh, filesize($template));
-    fclose($fh);
+    if (file_exists($template)) {
+      $fh = fopen($template, "r");
+      if (filesize($template) > 0) {
+        $this->template = fread($fh, filesize($template));
+      }
+      fclose($fh);
+    } else {
+      $this->template = $template;
+    }
 
     $this->prefix = $prefix;
   }
