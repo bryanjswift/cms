@@ -1,5 +1,7 @@
 <?php
 
+include_once(dirname(__FILE__) . "/setup.php");
+
 require_once "$testRoot/../lib/simpletest/autorun.php";
 require_once "$srcRoot/Parser.class.php";
 
