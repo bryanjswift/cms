@@ -42,4 +42,14 @@ class Tag {
     return htmlentities($this->markup);
   }
 
+  /**
+   * Gets an instance of Tag dependent on $kind with attributes defined by $markup
+   * @param $kind - String - Type of tag, after prefix in the markup
+   * @param $markup - String - Full markup of the tag
+   * @return an instance of Tag dependent on $kind
+   */
+  public static function getInstance($kind, $markup) {
+    return new Tag($markup);
+  }
+
 }
