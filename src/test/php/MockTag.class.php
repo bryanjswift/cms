@@ -9,7 +9,7 @@ class MockTag extends BasicTag {
     parent::__construct($ns, $kind, $markup);
   }
 
-  public function isMock() {
+  public function _isMock() {
     return true;
   }
 }
