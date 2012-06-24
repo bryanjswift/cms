@@ -28,11 +28,10 @@ class Tag {
 
     $attrs = array();
     $matches = array();
-    $needle = '/[a-zA-Z]*="[^"]*"/';
+    $needle = '/([a-zA-Z]*)="([^"]*)"/';
     preg_match_all($needle, $this->markup, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
-      $parts = explode('=', $match[0], 2);
-      $attrs[$parts[0]] = preg_replace('/"([^"]*)"/', '${1}', $parts[1]);
+      $attrs[$match[1]] = $match[2];
     }
     $this->attrs = $attrs;
     $this->processed = true;
