@@ -32,7 +32,7 @@ class Tag {
     preg_match_all($needle, $this->markup, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
       $parts = explode('=', $match[0], 2);
-      $attrs[$parts[0]] = $parts[1];
+      $attrs[$parts[0]] = preg_replace('/"([^"]*)"/', '${1}', $parts[1]);
     }
     $this->attrs = $attrs;
     $this->processed = true;
