@@ -52,4 +52,12 @@ class ParserTests extends UnitTestCase {
     $this->assertTrue(count($parser->tags()) > 0);
   }
 
+  function testParserReadsKnownString() {
+    $template = '<cms:content id="test" />';
+    $parser = new Parser($template);
+    $this->assertNotNull($parser);
+    $tags = $parser->tags();
+    $this->assertEqual(count($tags), 1);
+  }
+
 }
