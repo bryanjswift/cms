@@ -45,15 +45,15 @@ abstract class Tag {
     return $attrs;
   }
 
-  function kind() {
+  final function kind() {
     return $this->kind;
   }
 
-  function markup() {
+  final function markup() {
     return $this->markup;
   }
 
-  function ns() {
+  final function ns() {
     return $this->ns;
   }
 
