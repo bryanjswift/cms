@@ -57,16 +57,30 @@ abstract class Tag {
     return $this->ns;
   }
 
+  // *** Static Definitions *** //
+
   private static $kinds = array();
 
+  /**
+   * Register a Tag type for a given kind
+   * @param $kind - String of tags to handle
+   * @param $constructor - class name invoked with new keyword if $kind matches when using Tag::getInstance
+   * @return true if successfully registered
+   */
   public static function registerKind($kind, $constructor) {
+    try {
+      $r = new ReflectionClass($constructor);
+    } catch (Exception $e) {
+      throw new Exception("Must be passed a class name");
+    }
+    if (isset(Tag::$kinds[$kind])) { throw new Exception("Definition already exists for $kind"); }
     Tag::$kinds[$kind] = $constructor;
+    return Tag::$kinds[$kind] === $constructor;
   }
 
   /**
    * Gets an instance of Tag dependent on $kind with attributes defined by $markup
-   * @param $kind - String - Type of tag, after prefix in the markup
-   * @param $markup - String - Full markup of the tag
+   * @param $markup - String - Full markup of the tag (e.g. <cms:content params="are here" />)
    * @return an instance of Tag dependent on $kind
    */
   public static function getInstance($markup) {

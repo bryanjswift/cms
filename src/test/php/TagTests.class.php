@@ -4,6 +4,7 @@ include_once(dirname(__FILE__) . "/setup.php");
 
 require_once "$testRoot/../lib/simpletest/autorun.php";
 require_once "$srcRoot/Tag.class.php";
+require_once "$testRoot/MockTag.class.php";
 
 class TagTests extends UnitTestCase {
 
@@ -32,6 +33,24 @@ class TagTests extends UnitTestCase {
     $this->assertEqual($tag->ns(), "hi");
     $this->assertEqual($tag->kind(), "there");
     $this->assertEqual($tag->markup(), $markup);
+  }
+
+  function testRegisterKindHappy() {
+    $this->assertTrue(Tag::registerKind('mock', MockTag));
+    $tag = Tag::getInstance('<cms:mock id="hi" />');
+    $this->assertEqual(get_class($tag), 'MockTag');
+  }
+
+  function testRegisterKindNonExistantClass() {
+    $this->expectException(new Exception("Must be passed a class name"));
+    Tag::registerKind('dummy', DummyTag);
+  }
+
+  function testExceptionWhenRegisteringExistingKind() {
+    $kind = 'dummy';
+    $this->expectException(new Exception("Definition already exists for $kind"));
+    Tag::registerKind($kind, MockTag);
+    Tag::registerKind($kind, MockTag);
   }
 
 }
