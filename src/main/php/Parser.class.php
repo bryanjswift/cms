@@ -27,7 +27,7 @@ class Parser {
     $needle = "/<\/?" . $this->prefix . ":([a-zA-Z0-9]*)( [^>]*)?>/";
     preg_match_all($needle, $this->template, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
-      array_push($this->tags, Tag::getInstance($match[1], $match[0]));
+      array_push($this->tags, Tag::getInstance($match[0]));
     }
     return $this->tags;
   }

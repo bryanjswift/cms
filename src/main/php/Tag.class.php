@@ -2,11 +2,15 @@
 
 class Tag {
 
-  private $markup = "";
   private $attrs = array();
+  private $kind = "";
+  private $markup = "";
+  private $ns = "";
   private $processed = false;
 
-  function __construct($markup) {
+  function __construct($ns, $kind, $markup) {
+    $this->ns = $ns;
+    $this->kind = $kind;
     $this->markup = $markup;
   }
 
@@ -39,8 +43,16 @@ class Tag {
     return $attrs;
   }
 
+  function kind() {
+    return $this->kind;
+  }
+
   function markup() {
     return $this->markup;
+  }
+
+  function ns() {
+    return $this->ns;
   }
 
   /**
@@ -49,8 +61,11 @@ class Tag {
    * @param $markup - String - Full markup of the tag
    * @return an instance of Tag dependent on $kind
    */
-  public static function getInstance($kind, $markup) {
-    return new Tag($markup);
+  public static function getInstance($markup) {
+    $needle = '/^<([_a-zA-Z0-9]*):([_a-zA-Z0-9]*) .*$/';
+    $ns = preg_replace($needle, '${1}', $markup);
+    $kind = preg_replace($needle, '${2}', $markup);
+    return new Tag($ns, $kind, $markup);
   }
 
 }
