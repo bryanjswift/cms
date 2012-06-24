@@ -57,6 +57,12 @@ abstract class Tag {
     return $this->ns;
   }
 
+  private static $kinds = array();
+
+  public static function registerKind($kind, $constructor) {
+    Tag::$kinds[$kind] = $constructor;
+  }
+
   /**
    * Gets an instance of Tag dependent on $kind with attributes defined by $markup
    * @param $kind - String - Type of tag, after prefix in the markup
@@ -67,7 +73,12 @@ abstract class Tag {
     $needle = '/^<([_a-zA-Z0-9]*):([_a-zA-Z0-9]*) .*$/';
     $ns = preg_replace($needle, '${1}', $markup);
     $kind = preg_replace($needle, '${2}', $markup);
-    return new BasicTag($ns, $kind, $markup);
+    if (isset(Tag::$kinds[$kind])) {
+      $constructor = Tag::$kinds[$kind];
+      return new $constructor($ns, $kind, $markup);
+    } else {
+      return new BasicTag($ns, $kind, $markup);
+    }
   }
 
 }
