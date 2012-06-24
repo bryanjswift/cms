@@ -1,5 +1,7 @@
 <?php
 
+require_once("BasicTag.class.php");
+
 class Tag {
 
   private $attrs = array();
@@ -8,7 +10,7 @@ class Tag {
   private $ns = "";
   private $processed = false;
 
-  function __construct($ns, $kind, $markup) {
+  protected function __construct($ns, $kind, $markup) {
     $this->ns = $ns;
     $this->kind = $kind;
     $this->markup = $markup;
@@ -65,7 +67,7 @@ class Tag {
     $needle = '/^<([_a-zA-Z0-9]*):([_a-zA-Z0-9]*) .*$/';
     $ns = preg_replace($needle, '${1}', $markup);
     $kind = preg_replace($needle, '${2}', $markup);
-    return new Tag($ns, $kind, $markup);
+    return new BasicTag($ns, $kind, $markup);
   }
 
 }

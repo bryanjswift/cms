@@ -9,7 +9,7 @@ class TagTests extends UnitTestCase {
 
   function testTagParsing() {
     $markup = '<cms:content key="test" value="test value" />';
-    $tag = new Tag("cms", "content", $markup);
+    $tag = Tag::getInstance($markup);
     $this->assertNotNull($tag);
     $this->assertEqual($tag->key(), "test");
     $this->assertEqual($tag->value(), "test value");
