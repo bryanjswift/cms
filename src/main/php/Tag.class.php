@@ -2,7 +2,7 @@
 
 require_once("BasicTag.class.php");
 
-class Tag {
+abstract class Tag {
 
   private $attrs = array();
   private $kind = "";
