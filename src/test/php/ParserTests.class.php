@@ -60,4 +60,23 @@ class ParserTests extends UnitTestCase {
     $this->assertEqual(count($tags), 1);
   }
 
+  function testParserNamespaceCanBeConfigured() {
+
+$template = <<<EOF
+  <cms:content id="test" />
+  <cms:content id="fun" />
+  <test:content id="test" />
+EOF;
+
+    $parser = new Parser($template, "test");
+    $this->assertNotNull($parser);
+    $tags = $parser->tags();
+    $this->assertEqual(count($tags), 1);
+
+    $parser = new Parser($template, "cms");
+    $this->assertNotNull($parser);
+    $tags = $parser->tags();
+    $this->assertEqual(count($tags), 2);
+  }
+
 }
