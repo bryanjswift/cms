@@ -6,6 +6,8 @@ cont = true
 
 puts "Watching src/{main,test}/php/**/*.php for changes"
 puts "---"
+puts `php src/test/php/index.php`
+puts "---"
 
 callback = Proc.new do |modified, added, removed|
   puts `php src/test/php/index.php`
