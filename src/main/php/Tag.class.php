@@ -14,14 +14,15 @@ abstract class Tag {
     $this->ns = $ns;
     $this->kind = $kind;
     $this->markup = $markup;
+    $this->_attributes();
   }
 
   function __toString() {
-    return $this->markup();
+    return $this->_markup();
   }
 
   function __call($name, $arguments) {
-    $attrs = $this->attributes();
+    $attrs = $this->_attributes();
     if (isset($attrs[$name])) {
       return $attrs[$name];
     } else {
@@ -29,7 +30,7 @@ abstract class Tag {
     }
   }
 
-  function attributes() {
+  function _attributes() {
     if (count($this->processed) === true) { return $this->attrs; }
 
     $attrs = array();
@@ -37,7 +38,11 @@ abstract class Tag {
     $needle = '/([a-zA-Z]*)="([^"]*)"/';
     preg_match_all($needle, $this->markup, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
-      $attrs[$match[1]] = $match[2];
+      $key = $match[1];
+      if (in_array($key, Tag::$reserved)) {
+        throw new Exception("Tag can't contain value for $key");
+      }
+      $attrs[$key] = $match[2];
     }
     $this->attrs = $attrs;
     $this->processed = true;
@@ -49,7 +54,7 @@ abstract class Tag {
     return $this->kind;
   }
 
-  final function markup() {
+  final function _markup() {
     return $this->markup;
   }
 
@@ -60,6 +65,7 @@ abstract class Tag {
   // *** Static Definitions *** //
 
   private static $kinds = array();
+  public static $reserved = array('ns', 'kind');
 
   /**
    * Register a Tag type for a given kind
