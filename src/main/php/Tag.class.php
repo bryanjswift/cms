@@ -11,7 +11,7 @@ class Tag {
   }
 
   function __toString() {
-    return $this->raw();
+    return $this->markup();
   }
 
   function __call($name, $arguments) {
@@ -40,8 +40,8 @@ class Tag {
     return $attrs;
   }
 
-  function raw() {
-    return htmlentities($this->markup);
+  function markup() {
+    return $this->markup;
   }
 
   /**
