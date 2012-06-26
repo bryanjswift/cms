@@ -4,36 +4,25 @@ require_once("Tag.class.php");
 
 class Parser {
 
-  private $template = "";
-  private $prefix = "cms";
-  private $tags = array();
-
-  function __construct($template, $prefix="cms") {
-    if (file_exists($template)) {
-      $fh = fopen($template, "r");
-      if (filesize($template) > 0) {
-        $this->template = fread($fh, filesize($template));
+  static function getTags($tmpl, $prefix="cms") {
+    if (file_exists($tmpl)) {
+      $fh = fopen($tmpl, "r");
+      if (filesize($tmpl) > 0) {
+        $template = fread($fh, filesize($tmpl));
       }
       fclose($fh);
     } else {
-      $this->template = $template;
+      $template = $tmpl;
     }
 
-    $this->prefix = $prefix;
-  }
-
-  function tags() {
+    $tags = array();
     $matches = array();
-    $needle = "/<\/?" . $this->prefix . ":([a-zA-Z0-9]*)( [^>]*)?>/";
-    preg_match_all($needle, $this->template, $matches, PREG_SET_ORDER);
+    $needle = "/<\/?" . $prefix . ":([a-zA-Z0-9]*)( [^>]*)?>/";
+    preg_match_all($needle, $template, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
-      array_push($this->tags, Tag::getInstance($match[0]));
+      array_push($tags, Tag::getInstance($match[0]));
     }
-    return $this->tags;
-  }
-
-  function raw() {
-    return htmlentities($this->template);
+    return $tags;
   }
 
 }
