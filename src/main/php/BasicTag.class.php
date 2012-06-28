@@ -9,3 +9,5 @@ class BasicTag extends Tag {
   }
 
 }
+
+Tag::registerKind('basic', BasicTag);
