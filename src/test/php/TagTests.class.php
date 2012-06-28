@@ -45,7 +45,7 @@ class TagTests extends UnitTestCase {
   }
 
   function testRegisterKindHappy() {
-    $this->assertTrue(Tag::registerKind('mock', MockTag));
+    $this->assertTrue(Tag::registerKind('mock', 'MockTag'));
     $tag = Tag::getInstance('<cms:mock id="hi" />');
     $this->assertEqual(get_class($tag), 'MockTag');
   }
