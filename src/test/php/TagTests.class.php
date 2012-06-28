@@ -62,4 +62,11 @@ class TagTests extends UnitTestCase {
     Tag::registerKind($kind, MockTag);
   }
 
+  function testFalseForUnknownAttribute() {
+    $markup = '<hi:there id="test" />';
+    $tag = Tag::getInstance($markup);
+    $this->assertNotNull($tag);
+    $this->assertTrue($tag->oh() === false);
+  }
+
 }
