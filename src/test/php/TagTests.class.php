@@ -14,17 +14,16 @@ class TagTests extends UnitTestCase {
     $this->assertNotNull($tag);
     $this->assertEqual($tag->key(), "test");
     $this->assertEqual($tag->value(), "test value");
-    $this->assertEqual($tag->_markup(), $markup);
   }
 
   function testExceptionForTemplateContainingKind() {
-    $this->expectException(new Exception("Tag can't contain value for kind"));
+    $this->expectException(new Exception("kind is reserved. Tag can't contain value for kind"));
     $markup = '<cms:content kind="what kind is it?" />';
     $tag = Tag::getInstance($markup);
   }
 
   function testExceptionForTemplateContainingNs() {
-    $this->expectException(new Exception("Tag can't contain value for ns"));
+    $this->expectException(new Exception("ns is reserved. Tag can't contain value for ns"));
     $markup = '<cms:content ns="namespace" />';
     $tag = Tag::getInstance($markup);
   }
@@ -36,7 +35,6 @@ class TagTests extends UnitTestCase {
     $this->assertEqual($tag->id(), "test");
     $this->assertEqual($tag->ns(), "cms");
     $this->assertEqual($tag->kind(), "content");
-    $this->assertEqual($tag->_markup(), $markup);
 
     $markup = '<hi:there id="test" />';
     $tag = Tag::getInstance($markup);
@@ -44,7 +42,6 @@ class TagTests extends UnitTestCase {
     $this->assertEqual($tag->id(), "test");
     $this->assertEqual($tag->ns(), "hi");
     $this->assertEqual($tag->kind(), "there");
-    $this->assertEqual($tag->_markup(), $markup);
   }
 
   function testRegisterKindHappy() {
