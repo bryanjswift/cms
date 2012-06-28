@@ -26,7 +26,7 @@ abstract class Tag {
     if (isset($attrs[$name])) {
       return $attrs[$name];
     } else {
-      // undefined method error
+      return false;
     }
   }
 
