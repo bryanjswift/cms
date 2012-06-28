@@ -38,10 +38,12 @@ abstract class Tag {
     return $this->ns;
   }
 
+  abstract public function form();
+
   // *** Static Definitions *** //
 
   private static $kinds = array();
-  public static $reserved = array('ns', 'kind');
+  public static $reserved = array('ns', 'kind', 'form');
 
   /**
    * Register a Tag type for a given kind
