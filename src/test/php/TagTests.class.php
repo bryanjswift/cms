@@ -52,14 +52,14 @@ class TagTests extends UnitTestCase {
 
   function testRegisterKindNonExistantClass() {
     $this->expectException(new Exception("Must be passed a class name"));
-    Tag::registerKind('dummy', DummyTag);
+    Tag::registerKind('dummy', 'DummyTag');
   }
 
   function testExceptionWhenRegisteringExistingKind() {
     $kind = 'dummy';
     $this->expectException(new Exception("Definition already exists for $kind"));
-    Tag::registerKind($kind, MockTag);
-    Tag::registerKind($kind, MockTag);
+    Tag::registerKind($kind, 'MockTag');
+    Tag::registerKind($kind, 'MockTag');
   }
 
   function testFalseForUnknownAttribute() {

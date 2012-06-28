@@ -6,14 +6,12 @@ abstract class Tag {
 
   private $attrs = array();
   private $kind = "";
-  private $markup = "";
   private $ns = "";
   private $processed = false;
 
   protected function __construct($ns, $kind, $attrs) {
     $this->ns = $ns;
     $this->kind = $kind;
-    $this->markup = $markup;
     $this->attrs = $attrs;
   }
 

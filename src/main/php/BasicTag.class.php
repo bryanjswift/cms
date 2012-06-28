@@ -24,4 +24,4 @@ class BasicTag extends Tag {
 
 }
 
-Tag::registerKind('basic', BasicTag);
+Tag::registerKind('basic', 'BasicTag');

@@ -5,6 +5,7 @@ require_once("Tag.class.php");
 class Parser {
 
   static function getTags($tmpl, $prefix="cms") {
+    $template = "";
     if (file_exists($tmpl)) {
       $fh = fopen($tmpl, "r");
       if (filesize($tmpl) > 0) {
